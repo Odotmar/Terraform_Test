@@ -9,25 +9,24 @@ variable "region" {
   # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
 }
 
-variable "tenancy_id" {
-  description = "tenancy id where to create the sources"
-  type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
+variable "tenancy_ocid" {
 }
 
-variable "user_id" {
-  description = "id of user that terraform will use to create the resources"
-  type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
+variable "user_ocid" {
 }
+
+variable "fingerprint" {
+}
+
+variable "private_key_path" {
+}
+
+variable "compartment_ocid" {
+}
+
+
 
 # general oci parameters
-
-variable "compartment_id" {
-  description = "compartment id where to create all resources"
-  type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
-}
 
 variable "label_prefix" {
   description = "a string that will be prepended to all resources"
@@ -81,25 +80,7 @@ variable "vcn_name" {
   type        = string
 }
 
-
-
 variable "internet_gateway_display_name" {
   description = "(Updatable) Name of Internet Gateway. Does not have to be unique."
   type        = string
-}
-
-
-variable "tenancy_ocid" {
-}
-
-variable "user_ocid" {
-}
-
-variable "fingerprint" {
-}
-
-variable "private_key_path" {
-}
-
-variable "compartment_ocid" {
 }
