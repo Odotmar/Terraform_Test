@@ -10,13 +10,16 @@ oci = {
 
 
 locals {
-    regions = ["uk-london-1","eu-paris-1","eu-eumarseille-1"]
+  regions = {
+    uk-london-1    = "uk-london-1"
+    eu-paris-1     = "eu-paris-1"
+    eu-marseille-1 = "eu-marseille-1"
+  }
 }
 
 
 module "vcn" {
   for_each = local.regions
-  region = each.value
   source  = "oracle-terraform-modules/vcn/oci"
   version = "3.6.0"
   compartment_id = var.compartment_ocid
