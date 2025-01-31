@@ -2,13 +2,6 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 # provider identity parameters
-variable "region" {
-  description = "the oci region where resources will be created"
-  type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
-  # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
-}
-
 variable "tenancy_ocid" {
 }
 
