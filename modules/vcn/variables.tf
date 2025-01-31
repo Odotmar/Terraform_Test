@@ -1,20 +1,7 @@
-odaley-mac:v1 odaley$ cat variables.tf
 # Copyright (c) 2019, 2021, Oracle Corporation and/or affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 # provider identity parameters
-variable "api_fingerprint" {
-  description = "fingerprint of oci api private key"
-  type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
-}
-
-variable "api_private_key_path" {
-  description = "path to oci api private key used"
-  type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
-}
-
 variable "region" {
   description = "the oci region where resources will be created"
   type        = string
@@ -68,25 +55,7 @@ variable "defined_tags" {
 variable "create_internet_gateway" {
   description = "whether to create the internet gateway"
   type        = bool
-  default     = false
-}
-
-variable "create_nat_gateway" {
-  description = "whether to create a nat gateway in the vcn"
-  type        = bool
-  default     = false
-}
-
-variable "create_service_gateway" {
-  description = "whether to create a service gateway"
-  type        = bool
-  default     = false
-}
-
-variable "enable_ipv6" {
-  description = "Whether IPv6 is enabled for the VCN. If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block."
-  type        = bool
-  default     = false
+  default     = true
 }
 
 variable "lockdown_default_seclist" {
@@ -98,7 +67,7 @@ variable "lockdown_default_seclist" {
 variable "vcn_cidrs" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
   type        = list(string)
-  default     = ["10.0.0.0/16", "172.16.0.0/16", "192.168.0.0/24"]
+  default     = [ "10.10.100.0/24" ]
 }
 
 variable "vcn_dns_label" {
@@ -110,32 +79,27 @@ variable "vcn_dns_label" {
 variable "vcn_name" {
   description = "user-friendly name of to use for the vcn to be appended to the label_prefix"
   type        = string
-  default     = "vcn"
 }
 
-# gateways parameters
-
-variable "attached_drg_id" {
-  description = "the ID of DRG attached to the VCN"
-  type        = string
-  default     = null
-}
 
 
 variable "internet_gateway_display_name" {
   description = "(Updatable) Name of Internet Gateway. Does not have to be unique."
   type        = string
-  default     = "igw"
 }
 
-variable "nat_gateway_display_name" {
-  description = "(Updatable) Name of NAT Gateway. Does not have to be unique."
-  type        = string
-  default     = "ngw"
+
+variable "tenancy_ocid" {
 }
 
-variable "service_gateway_display_name" {
-  description = "(Updatable) Name of Service Gateway. Does not have to be unique."
-  type        = string
-  default     = "sgw"
+variable "user_ocid" {
+}
+
+variable "fingerprint" {
+}
+
+variable "private_key_path" {
+}
+
+variable "compartment_ocid" {
 }

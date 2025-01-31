@@ -1,15 +1,51 @@
-module "instance" {
-  source = "oracle-terraform-modules/compute-instance/oci"
-  instance_count             = 1 # how many instances do you want?
-  ad_number                  = 1 # AD number to provision instances. If null, instances are provisionned in a rolling manner starting with AD1
-  compartment_ocid           = var.compartment_ocid
-  instance_display_name      = var.instance_display_name
-  source_ocid                = var.source_ocid
-  subnet_ocids               = var.subnet_ocids
-  public_ip                  = var.public_ip # NONE, RESERVED or EPHEMERAL
-  ssh_public_keys            = var.ssh_public_keys
-  block_storage_sizes_in_gbs = [50]
-  shape                      = var.shape
-  instance_state             = var.instance_state # RUNNING or STOPPED
-  boot_volume_backup_policy  = var.boot_volume_backup_policy # disabled, gold, silver or bronze
+terraform {
+  required_providers {
+    oci    = "~> 6.22.0"
+  }
+}
+
+module "vcn" {
+  # to use the terraform registry version comment the previous line and uncomment the 2 lines below
+  source  = "oracle-terraform-modules/vcn/oci"
+  version = "3.6.0"
+
+  # general oci parameters
+  compartment_id = var.compartment_id
+  label_prefix   = var.label_prefix
+  freeform_tags  = var.freeform_tags
+  defined_tags   = var.defined_tags
+
+  # vcn parameters
+  create_internet_gateway  = var.create_internet_gateway  # boolean: true or false
+  lockdown_default_seclist = var.lockdown_default_seclist # boolean: true or false
+  create_nat_gateway       = var.create_nat_gateway       # boolean: true or false
+  create_service_gateway   = var.create_service_gateway   # boolean: true or false
+  enable_ipv6              = var.enable_ipv6
+  vcn_cidrs                = var.vcn_cidrs # List of IPv4 CIDRs
+  vcn_dns_label            = var.vcn_dns_label
+  vcn_name                 = var.vcn_name
+
+  # gateways parameters
+  internet_gateway_display_name = var.internet_gateway_display_name
+  nat_gateway_display_name      = var.nat_gateway_display_name
+  service_gateway_display_name  = var.service_gateway_display_name
+  attached_drg_id               = var.attached_drg_id
+}
+
+# Outputs
+
+output "module_vcn_ids" {
+  description = "vcn and gateways information"
+  value = {
+    internet_gateway_id          = module.vcn.internet_gateway_id
+    internet_gateway_route_id    = module.vcn.ig_route_id
+    nat_gateway_id               = module.vcn.nat_gateway_id
+    nat_gateway_route_id         = module.vcn.nat_route_id
+    service_gateway_id           = module.vcn.service_gateway_id
+    vcn_dns_label                = module.vcn.vcn_all_attributes.dns_label
+    vcn_default_security_list_id = module.vcn.vcn_all_attributes.default_security_list_id
+    vcn_default_route_table_id   = module.vcn.vcn_all_attributes.default_route_table_id
+    vcn_default_dhcp_options_id  = module.vcn.vcn_all_attributes.default_dhcp_options_id
+    vcn_id                       = module.vcn.vcn_id
+  }
 }
