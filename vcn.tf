@@ -8,9 +8,6 @@ oci = {
 } 
 
 module "vcn" {
-  providers = {
-    oci =  uk-london-1
-    }
   source  = "oracle-terraform-modules/vcn/oci"
   version = "3.6.0"
   compartment_id = var.compartment_ocid
