@@ -14,9 +14,7 @@ module "vcn" {
 }
 
 module "vcn_eumarseille1" {
-  providers = {
-    oci =  oci.eumarseille1
-    }
+  region = oci.eumarseille1
   source  = "oracle-terraform-modules/vcn/oci"
   version = "3.6.0"
   compartment_id = var.compartment_ocid
@@ -24,7 +22,7 @@ module "vcn_eumarseille1" {
 }
 
 module "vcn_euparis1" {
-  providers = {oci =  oci.euparis1}
+  region =  oci.euparis1
   source  = "oracle-terraform-modules/vcn/oci"
   version = "3.6.0"
   compartment_id = var.compartment_ocid
