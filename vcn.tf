@@ -1,12 +1,11 @@
 terraform {
 required_providers {
 oci = {
-  source = "oci"
-  version = "6.22"
+  source = "oracle/oci"
+  version = "6.23"
         }
     }
 } 
-
 
 
 locals {
