@@ -10,7 +10,7 @@ version = "6.22"
 
 
 module "vcn"  {
-     source = "~/modules/vcn"
+     source = "./modules/vcn"
      version = "3.6.0"
      create_internet_gateway = true
      vcn_namw = "My Test VCN 01"
