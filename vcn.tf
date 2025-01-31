@@ -7,13 +7,7 @@ oci = {
     }
 } 
 
-provider "oci" {
-  tenancy_ocid     = var.tenancy_ocid
-  user_ocid        = var.user_ocid
-  fingerprint      = var.fingerprint
-  private_key_path = var.private_key_path
-  region           = var.region
-}
+
 
 locals {
     regions = ["uk-london-1","eu-paris-1","eu-eumarseille-1"]
@@ -21,7 +15,7 @@ locals {
 
 
 module "vcn" {
-  for_each = toset(local.regions)
+  for_each = local.regions
   region = each.value
   source  = "oracle-terraform-modules/vcn/oci"
   version = "3.6.0"
@@ -29,7 +23,7 @@ module "vcn" {
 }
 
 # module "vcn_eumarseille1" {
-#   region = oci.eumarseille1
+#   region = "eu-marseille-1"
 #   source  = "oracle-terraform-modules/vcn/oci"
 #   version = "3.6.0"
 #   compartment_id = var.compartment_ocid
