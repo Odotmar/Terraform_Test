@@ -57,7 +57,7 @@ variable "lockdown_default_seclist" {
 variable "vcn_cidrs" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
   type        = list(string)
-  default     = [ "10.10.100.0/24" ]
+  default     = [ "10.10.10.0/24" ]
 }
 
 variable "vcn_dns_label" {
